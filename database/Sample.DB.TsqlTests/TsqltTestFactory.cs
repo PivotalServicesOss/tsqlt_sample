@@ -98,7 +98,7 @@ public class TsqltTestFactory : IDisposable
         var connectionString = Environment.GetEnvironmentVariable(DB_CONNECTION_STR_ENV_VAR_NM);
 
         if (string.IsNullOrWhiteSpace(connectionString))
-            return "Server=localhost,2000;Database=Sample;User Id=sa;Password=AlwaysBeKind@;";
+            throw new ArgumentException($"Connection string environment variable `{DB_CONNECTION_STR_ENV_VAR_NM}` is not set!");;
 
         return connectionString;
     }
