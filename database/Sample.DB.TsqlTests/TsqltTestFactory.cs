@@ -48,13 +48,7 @@ public class TsqltTestFactory : IDisposable
             await ExecuteScriptsInChunks(tsqltTestFileSql);
         }
     }
-
-    public async Task<int> ExecuteNonQueryAsync(string sql)
-    {
-        using var cmd = new SqlCommand(sql, connection);
-        return await cmd.ExecuteNonQueryAsync();
-    }
-
+    
     private async Task ExecuteScriptsInChunks(string[] sqlContent)
     {
         var sqlBuilder = new StringBuilder();
@@ -68,6 +62,12 @@ public class TsqltTestFactory : IDisposable
             else
                 sqlBuilder.AppendLine(line);
         }
+    }
+
+    public async Task<int> ExecuteNonQueryAsync(string sql)
+    {
+        using var cmd = new SqlCommand(sql, connection);
+        return await cmd.ExecuteNonQueryAsync();
     }
 
     private SqlConnection GetSqlConnection()
@@ -86,7 +86,6 @@ public class TsqltTestFactory : IDisposable
     }
 
     private void WriteOutput(string text)
-
     {
         Debug.WriteLine(text);
         Console.WriteLine(text);
