@@ -31,7 +31,7 @@ Task CompileDb {
     delete_directory($db_publish_dir)
     Exec {
         & dotnet msbuild /t:restore $db_project_file /v:m 
-        & dotnet msbuild /t:build /p:OutDir=$db_publish_dir /p:NetCoreBuild=true $db_project_file /v:m
+        & dotnet build /p:OutDir=$db_publish_dir /p:NetCoreBuild=true $db_project_file /v:m
     }
 }
 
