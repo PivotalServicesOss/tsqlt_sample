@@ -54,15 +54,16 @@ Task DeployDb {
         {
             Write-Host "Running in Linux"  -ForegroundColor Blue
             Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=2185670" -OutFile "$temp_tools_dir/sqlpackage-linux.zip"
-            Expand-Archive -Path "$tools_dir/sqlpackage-linux.zip" -DestinationPath "$temp_tools_dir\sqlpackage" -Force
+            Expand-Archive -Path "$temp_tools_dir/sqlpackage-linux.zip" -DestinationPath "$temp_tools_dir/sqlpackage" -Force
             & chmod +x "$temp_tools_dir/sqlpackage/sqlpackage"
         }
         else
         {
             Write-Host "Running in Windows"  -ForegroundColor Blue
             Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=2185669" -OutFile "$temp_tools_dir/sqlpackage-win.zip"
-            Expand-Archive -Path "$tools_dir/sqlpackage-win.zip" -DestinationPath "$temp_tools_dir\sqlpackage" -Force
+            Expand-Archive -Path "$temp_tools_dir/sqlpackage-win.zip" -DestinationPath "$temp_tools_dir/sqlpackage" -Force
         }
+
         & $temp_tools_dir/sqlpackage/sqlpackage /Action:Publish /SourceFile:"$db_publish_dir/Sample.DB.dacpac" /tcs:$db_connection_str /p:BlockOnPossibleDataLoss=true
     }
 }
